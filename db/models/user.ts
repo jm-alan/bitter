@@ -59,13 +59,19 @@ export default class User extends Model<
     return user;
   };
 
-  static associate: Associator = ({ Bit, Like }) => {
+  static associate: Associator = ({ Bit, Like, MemCopy }) => {
     User.hasMany(Bit, { foreignKey: 'userID' });
     User.belongsToMany(Bit, {
       through: Like,
+      as: 'LikedBit',
       foreignKey: 'userID',
-      otherKey: 'bitID',
-      as: 'LikedBit'
+      otherKey: 'bitID'
+    });
+    User.belongsToMany(Bit, {
+      through: MemCopy,
+      as: 'CopiedBit',
+      foreignKey: 'userID',
+      otherKey: 'bitID'
     });
   };
 
