@@ -11,13 +11,19 @@ export default class Bit extends Model<
   declare createdAt: CreationOptional<Date>;
   declare updatedAt: CreationOptional<Date>;
 
-  static associate: Associator = ({ User, Like }) => {
+  static associate: Associator = ({ User, Like, MemCopy }) => {
     Bit.belongsTo(User, { foreignKey: 'userID' });
     Bit.belongsTo(Bit, { foreignKey: 'replyToID', as: 'Parent' });
     Bit.hasMany(Bit, { foreignKey: 'replyToID', as: 'Reply' });
     Bit.belongsToMany(User, {
       through: Like,
       as: 'LikingUser',
+      foreignKey: 'bitID',
+      otherKey: 'userID'
+    });
+    Bit.belongsToMany(User, {
+      through: MemCopy,
+      as: 'CopyingUser',
       foreignKey: 'bitID',
       otherKey: 'userID'
     });
