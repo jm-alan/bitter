@@ -13,3 +13,8 @@ iterableModels.forEach(model => {
 iterableModels.forEach(model => {
   model.associate(models);
 });
+
+export const initialize = async () => {
+  await sequelize.authenticate();
+  await sequelize.sync({ alter: true });
+};
