@@ -3,11 +3,9 @@ import Bit from './bit';
 import Like from './like';
 import MemCopy from './memcpy';
 
-const aggregateModels = {
+export default {
   User,
   Bit,
   Like,
   MemCopy
 } as const;
-
-export default aggregateModels;
